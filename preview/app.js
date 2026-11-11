@@ -13,7 +13,7 @@
   function image(src,alt,cls){const n=node('img',cls);n.src=src;n.alt=alt||'';n.loading='lazy';n.decoding='async';return n;}
   function art(src,crop,alt,cls){const box=node('div','art '+(cls||''));if(!crop){box.append(image(src,alt));return box;}const viewport=node('div','crop-window'),img=image(src,alt);viewport.append(img);box.append(viewport);const resize=()=>{if(!box.isConnected)return;const scale=Math.min(box.clientWidth/crop.width,box.clientHeight/crop.height);viewport.style.width=crop.width*scale+'px';viewport.style.height=crop.height*scale+'px';img.style.width=crop.sourceWidth*scale+'px';img.style.height=crop.sourceHeight*scale+'px';img.style.left=-crop.x*scale+'px';img.style.top=-crop.y*scale+'px';};artUpdates.push(resize);if(window.ResizeObserver){const observer=new ResizeObserver(resize);observer.observe(box);cleanup.push(()=>observer.disconnect());}return box;}
   function productArt(p,cls,crop=p.coverCrop){return art(p.cover,crop,p.title,cls);}
-  function logo(){return image('./assets/brand/yosh-black.png','YOSH','brand-logo');}
+  function logo(){return image('./assets/brand/yosh-official-white.svg','YOSH','brand-logo');}
   function money(fen){return C.formatMoney(fen);}
   function price(fen){if(fen===null||fen===undefined)return node('p','price pending','售价待定');const p=node('p','price');p.append(node('span','price-label','测试价'),document.createTextNode('¥ '+money(fen)));return p;}
   function notice(message){const n=document.getElementById('toast');clearTimeout(toastTimer);n.textContent=message;n.hidden=false;toastTimer=setTimeout(()=>{n.hidden=true;},3000);}
